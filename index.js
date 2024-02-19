@@ -1,6 +1,6 @@
 require("dotenv").config()
 const express = require("express");
-const {getTareas,crearTareas} = require("./db")
+const {getTareas,crearTareas,borrarTarea} = require("./db")
 const {json} = require("body-parser");
 
 
@@ -49,11 +49,18 @@ servidor.put("/api-todo", (peticion, respuesta) => {
     
 })
 
-servidor.delete("/api-todo", (peticion, respuesta) => {
-    
-        respuesta.send("metodo delete")
-    
+servidor.delete("/api-todo/borrar/:id",async (peticion, respuesta) => {
+
+    try{
+        let cantidad = await borrarTarea(peticion.params.id);
+        return respuesta.json({resultado : cantidad ? "ok" : "ko"})
+    }catch(error){
+        respuesta.status(500);
+
+        return respuesta.json(error);
+    }
 });
+
 
 servidor.use((peticion,respuesta) => {
     respuesta.status(404);
