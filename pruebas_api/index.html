@@ -10,8 +10,8 @@
 
         let tarea = "aprender React"
 
-        fetch("/api-todo/borrar/1",{
-            method : "DELETE",
+        fetch("/api-todo/actualizar/1/1",{
+            method : "PUT",
             body : JSON.stringify({tarea}),
             headers : {
                 "Content-type" : "application/json"
