@@ -2,11 +2,15 @@ require("dotenv").config()
 const express = require("express");
 const {getTareas,crearTareas,borrarTarea,actualizarEstado,actualizarTexto} = require("./db")
 const {json} = require("body-parser");
+const cors = require("cors");
 
 
 let servidor = express();
 
+servidor.use(cors());
+
 servidor.use(json());
+servidor.use(express.static("./estaticos"));
 
 servidor.use("/pruebas", express.static("./pruebas_api"));
 
